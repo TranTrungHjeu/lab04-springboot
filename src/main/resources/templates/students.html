@@ -25,6 +25,39 @@
             padding: 35px 20px;
         }
 
+        .nav-bar {
+            max-width: 1240px;
+            margin: 0 auto 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: white;
+            color: #5b5fc7;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.22s ease;
+            border: 2px solid rgba(91, 95, 199, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(145deg, #5b5fc7 0%, #6d5bae 100%);
+            color: white;
+            border-color: transparent;
+        }
+
         .container {
             max-width: 1240px;
             margin: 0 auto;
@@ -298,7 +331,103 @@
             box-shadow: 0 6px 20px rgba(91, 95, 199, 0.36);
         }
 
+        /* Delete Confirmation Modal */
+        .modal-icon-warning {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #f44336 0%, #d32f2f 100%);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 13px 24px;
+            border: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-btn-cancel {
+            background: #f1f3f9;
+            color: #5d5f7a;
+            border: 2px solid #e8eaf0;
+        }
+
+        .modal-btn-cancel:hover {
+            background: #e8eaf0;
+            border-color: #d4d7e5;
+        }
+
+        .modal-btn-confirm {
+            background: linear-gradient(145deg, #f44336 0%, #d32f2f 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(244, 67, 54, 0.28);
+        }
+
+        .modal-btn-confirm:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(244, 67, 54, 0.36);
+        }
+
+        /* Search Box */
+        .search-wrapper {
+            margin-bottom: 24px;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 420px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 13px 17px 13px 45px;
+            border: 2px solid #e8eaf0;
+            border-radius: 9px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            color: #3c3f58;
+            background: #fafbff;
+            transition: all 0.22s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #5b5fc7;
+            box-shadow: 0 0 0 4px rgba(91, 95, 199, 0.08);
+            background: white;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: #6e7191;
+            pointer-events: none;
+        }
+
         @media (max-width: 768px) {
+            .nav-bar {
+                flex-wrap: wrap;
+            }
+
             .header {
                 flex-direction: column;
                 gap: 20px;
@@ -326,7 +455,29 @@
     </style>
 </head>
 <body>
-    <!-- Modal Notification -->
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <a href="/students" class="nav-btn active">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            Sinh viên
+        </a>
+        <a href="/subjects" class="nav-btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+            Môn học
+        </a>
+        <a href="/enrollments" class="nav-btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Đăng ký môn học
+        </a>
+    </div>
+
+    <!-- Success Notification Modal -->
     <div id="notificationModal" class="modal-overlay" th:if="${message}">
         <div class="modal-content">
             <div class="modal-icon">
@@ -340,6 +491,23 @@
         </div>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon-warning">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+            </div>
+            <h2 class="modal-title">Xác nhận xóa sinh viên</h2>
+            <p class="modal-message" id="deleteMessage">Bạn có chắc chắn muốn xóa sinh viên này không? Hành động này không thể hoàn tác.</p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" onclick="closeDeleteModal()">Hủy</button>
+                <button class="modal-btn modal-btn-confirm" onclick="confirmDelete()">Xóa sinh viên</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>Quản lý sinh viên</h1>
@@ -347,6 +515,15 @@
         </div>
 
         <div class="content">
+            <!-- Search Box -->
+            <div class="search-wrapper">
+                <div class="search-box">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên, email hoặc mã sinh viên..." onkeyup="searchStudents()">
+                </div>
+            </div>
             <div class="table-wrapper" th:if="${#lists.size(students) > 0}">
                 <table>
                     <thead>
@@ -367,9 +544,9 @@
                             <td>
                                 <div class="actions">
                                     <a th:href="@{/students/edit/{id}(id=${s.id})}" class="btn-action btn-edit">Sửa</a>
-                                    <a th:href="@{/students/delete/{id}(id=${s.id})}"
+                                    <a href="javascript:void(0)"
                                        class="btn-action btn-delete"
-                                       onclick="return confirm('Bạn có chắc chắn muốn xóa sinh viên này?')">Xóa</a>
+                                       th:onclick="'showDeleteModal(' + ${s.id} + ', \'' + ${s.name} + '\')'">Xóa</a>
                                 </div>
                             </td>
                         </tr>
@@ -389,7 +566,9 @@
     </div>
 
     <script th:inline="javascript">
-        // Show modal if message exists
+        let deleteStudentId = null;
+
+        // Show success notification modal
         window.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('notificationModal');
             if (modal) {
@@ -414,10 +593,68 @@
             }
         }
 
+        // Delete confirmation modal functions
+        function showDeleteModal(id, name) {
+            deleteStudentId = id;
+            const message = document.getElementById('deleteMessage');
+            message.innerHTML = 'Bạn có chắc chắn muốn xóa sinh viên <strong>' + name + '</strong> không? Hành động này không thể hoàn tác.';
+
+            const modal = document.getElementById('deleteModal');
+            modal.style.display = 'flex';
+            setTimeout(function() {
+                modal.classList.add('show');
+            }, 10);
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.classList.remove('show');
+            setTimeout(function() {
+                modal.style.display = 'none';
+                deleteStudentId = null;
+            }, 300);
+        }
+
+        function confirmDelete() {
+            if (deleteStudentId) {
+                window.location.href = '/students/delete/' + deleteStudentId;
+            }
+        }
+
+        // Search function
+        function searchStudents() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const table = document.querySelector('tbody');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+
+                // Search in ID (0), Name (1), and Email (2)
+                for (let j = 0; j < 3; j++) {
+                    if (cells[j]) {
+                        const text = cells[j].textContent || cells[j].innerText;
+                        if (text.toLowerCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+
+                rows[i].style.display = found ? '' : 'none';
+            }
+        }
+
         // Close modal when clicking overlay
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('modal-overlay')) {
-                closeModal();
+                if (e.target.id === 'notificationModal') {
+                    closeModal();
+                } else if (e.target.id === 'deleteModal') {
+                    closeDeleteModal();
+                }
             }
         });
     </script>
