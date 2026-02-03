@@ -203,6 +203,101 @@
             font-weight: 500;
         }
 
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(28, 29, 34, 0.45);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 14px;
+            padding: 32px 36px;
+            max-width: 440px;
+            width: 90%;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: scale(0.92) translateY(12px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(139, 92, 246, 0.12);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #5b5fc7 0%, #6d5bae 100%);
+        }
+
+        .modal-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .modal-title {
+            font-family: 'Merriweather', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #3c3f58;
+            text-align: center;
+            margin-bottom: 11px;
+            letter-spacing: -0.2px;
+        }
+
+        .modal-message {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #6e7191;
+            text-align: center;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .modal-button {
+            width: 100%;
+            padding: 13px 24px;
+            background: linear-gradient(145deg, #5b5fc7 0%, #6d5bae 100%);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(91, 95, 199, 0.28);
+        }
+
+        .modal-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(91, 95, 199, 0.36);
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -223,10 +318,28 @@
                 flex-direction: column;
                 gap: 8px;
             }
+
+            .modal-content {
+                padding: 28px 30px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Modal Notification -->
+    <div id="notificationModal" class="modal-overlay" th:if="${message}">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h2 class="modal-title">Thành công!</h2>
+            <p class="modal-message" th:text="${message}">Thao tác thành công!</p>
+            <button class="modal-button" onclick="closeModal()">Đóng</button>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>Quản lý sinh viên</h1>
@@ -274,5 +387,39 @@
             </div>
         </div>
     </div>
+
+    <script th:inline="javascript">
+        // Show modal if message exists
+        window.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('notificationModal');
+            if (modal) {
+                setTimeout(function() {
+                    modal.classList.add('show');
+                }, 100);
+
+                // Auto close after 3 seconds
+                setTimeout(function() {
+                    closeModal();
+                }, 3000);
+            }
+        });
+
+        function closeModal() {
+            const modal = document.getElementById('notificationModal');
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(function() {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        // Close modal when clicking overlay
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>

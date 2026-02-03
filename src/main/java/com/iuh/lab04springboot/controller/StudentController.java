@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/students")
@@ -29,11 +30,21 @@ public class StudentController {
     }
 
     @PostMapping("/save")
-    public String save(@Valid @ModelAttribute("student") Student student, BindingResult result) {
+    public String save(@Valid @ModelAttribute("student") Student student, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "student-form";
         }
+        boolean isNew = student.getId() == null;
         service.save(student);
+
+        if (isNew) {
+            redirectAttributes.addFlashAttribute("message", "Thêm sinh viên thành công!");
+            redirectAttributes.addFlashAttribute("messageType", "success");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Cập nhật thông tin sinh viên thành công!");
+            redirectAttributes.addFlashAttribute("messageType", "success");
+        }
+
         return "redirect:/students";
     }
 
@@ -48,8 +59,10 @@ public class StudentController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id) {
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         service.delete(id);
+        redirectAttributes.addFlashAttribute("message", "Xóa sinh viên thành công!");
+        redirectAttributes.addFlashAttribute("messageType", "success");
         return "redirect:/students";
     }
 }
