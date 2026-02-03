@@ -509,7 +509,10 @@
                             <td>
                                 <a href="javascript:void(0)"
                                    class="btn-action"
-                                   th:onclick="'showDeleteModal(' + ${enrollment.id} + ', \'' + ${enrollment.student.name} + '\', \'' + ${enrollment.subject.name} + '\')'">Hủy</a>
+                                   th:data-id="${enrollment.id}"
+                                   th:data-student="${enrollment.student.name}"
+                                   th:data-subject="${enrollment.subject.name}"
+                                   onclick="showDeleteModal(this.dataset.id, this.dataset.student, this.dataset.subject)">Hủy</a>
                             </td>
                         </tr>
                     </tbody>

@@ -546,7 +546,9 @@
                                     <a th:href="@{/students/edit/{id}(id=${s.id})}" class="btn-action btn-edit">Sửa</a>
                                     <a href="javascript:void(0)"
                                        class="btn-action btn-delete"
-                                       th:onclick="'showDeleteModal(' + ${s.id} + ', \'' + ${s.name} + '\')'">Xóa</a>
+                                       th:data-id="${s.id}"
+                                       th:data-name="${s.name}"
+                                       onclick="showDeleteModal(this.dataset.id, this.dataset.name)">Xóa</a>
                                 </div>
                             </td>
                         </tr>
